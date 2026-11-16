@@ -11,5 +11,6 @@ create table public.menus (
   spicy boolean not null default false,
   emoji text not null default '🍽️',
   category_id bigint not null references public.categories (id),
-  created_at timestamptz not null default now()
+  created_at timestamptz not null default now(),
+  created_by uuid default auth.uid()
 );

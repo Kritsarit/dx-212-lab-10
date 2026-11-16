@@ -14,7 +14,8 @@ create table public.menus (
   spicy boolean not null default false,
   emoji text not null default '🍽️',
   category_id bigint not null references public.categories (id),
-  created_at timestamptz not null default now()
+  created_at timestamptz not null default now(),
+  created_by uuid default auth.uid()
 );
 
 -- ML4-A: ใส่หมวดก่อน (เพราะเมนูต้องอ้างถึงหมวด)
@@ -37,7 +38,7 @@ select * from public.menus;
 -- ML6: view = SELECT ที่ตั้งชื่อไว้ แอปเรียกใช้เหมือนตาราง
 create view public.menu_list
 with (security_invoker = true) as
-select m.id, m.name, m.price, c.name as category, m.spicy, m.emoji
+select m.id, m.name, m.price, c.name as category, m.spicy, m.emoji, m.created_by
 from public.menus m
 join public.categories c on c.id = m.category_id;
 

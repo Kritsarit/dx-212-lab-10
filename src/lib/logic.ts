@@ -6,6 +6,7 @@ export type Menu = {
   category: string;
   spicy: boolean;
   emoji: string;
+  created_by?: string | null;
 };
 
 export const filterByBudget = (menus: Menu[], budget: number): Menu[] => {
